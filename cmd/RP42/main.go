@@ -60,22 +60,21 @@ func sendActivity(details string, state string, largeText string, smallImage str
 
 func getActiveCursus(user *api.User) *api.CursusUser {
 	var active_cursus *api.CursusUser
+
 	for _, cursus_user := range user.CursusUsers {
-		if cursus_user.Cursus.Slug == "c-piscine" && active_cursus == nil {
-			active_cursus = &cursus_user
-		}
-
-		if cursus_user.Cursus.Slug == "42" && (active_cursus == nil || active_cursus.Cursus.Slug == "c-piscine") {
-			active_cursus = &cursus_user
-		}
-
 		if cursus_user.Cursus.Slug == "42cursus" {
+			active_cursus = &cursus_user
+			break // Priority match found, no need to check further
+		} else if cursus_user.Cursus.Slug == "42" && (active_cursus == nil || active_cursus.Cursus.Slug != "42cursus") {
+			active_cursus = &cursus_user
+		} else if cursus_user.Cursus.Slug == "c-piscine" && (active_cursus == nil || (active_cursus.Cursus.Slug != "42cursus" && active_cursus.Cursus.Slug != "42")) {
 			active_cursus = &cursus_user
 		}
 	}
+
 	return active_cursus
 }
-
+ 
 func setPresence(ctx context.Context, user *api.User, location *api.Location, coalition *api.Coalition) {
 	cursus_user := getActiveCursus(user)
 
