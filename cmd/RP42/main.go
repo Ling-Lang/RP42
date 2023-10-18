@@ -17,7 +17,7 @@ import (
 	discord "github.com/hugolgst/rich-go/client"
 )
 
-const DISCORD_APP_ID = "531103976029028367"
+const DISCORD_APP_ID = "1044008209381347339"
 
 func main() {
 	systray.Run(onReady, onExit)
@@ -112,7 +112,7 @@ func setPresence(ctx context.Context, user *api.User, location *api.Location, co
 		sendActivity(
 			fmt.Sprintf("%s | Lvl %s", login, lvl),
 			fmt.Sprint(loc, separator, campus),
-			"Download: git.io/Je2xQ",
+      "Suffering in success :)",
 			coaSlug,
 			coaName,
 			&start,
